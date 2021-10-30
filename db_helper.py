@@ -21,6 +21,13 @@ class StudentRecordHelper:
             students.append(st)
         return students
 
+    def insert(self, student):
+        cur = self.db.cursor()
+        sql = "INSERT INTO student(name,dob,grade,address,parent_name) VALUES (%s,%s,%s,%s,%s)"
+
+        return
+
+
 
 def connect_db() -> MySQLConnection:
     return mysql.connector.connect(
