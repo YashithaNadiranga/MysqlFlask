@@ -1,18 +1,19 @@
 import mysql.connector
-from collections import namedtuple
 from mysql.connector.connection import MySQLConnection
+from collections import namedtuple
 
-Student = namedtuple("Student","id name dob grade address parent_name")
+Student = namedtuple("Student", "id name dob grade address parent_name")
+
 
 class StudentRecordHelper:
-    db : MySQLConnection
+    db: MySQLConnection
 
-    def __init__(self,db):
+    def __init__(self, db):
         self.db = db
 
     def get_all(self):
-        cur =self.db.cursor()
-        sql = "SELECT * From student"
+        cur = self.db.cursor()
+        sql = "SELECT * FROM student"
         cur.execute(sql)
         results = cur.fetchall()
         students = []
@@ -23,16 +24,14 @@ class StudentRecordHelper:
 
     def insert(self, student):
         cur = self.db.cursor()
-        sql = "INSERT INTO student(name,dob,grade,address,parent_name) VALUES (%s,%s,%s,%s,%s)"
-
-        return
-
-
+        sql = "INSERT INTO student (name,dob,grade,address,parent_name) VALUES(%s,%s,%s,%s,%s)"
+        cur.execute(sql, student)
+        self.db.commit()
 
 def connect_db() -> MySQLConnection:
     return mysql.connector.connect(
-    host="localhost",
-    user = "root",
-    password="1234",
-    database="ijse_db"
-)
+        host="localhost",
+        user="root",
+        password="1234",
+        database="ijse_db"
+    )
