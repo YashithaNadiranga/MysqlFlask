@@ -24,4 +24,3 @@ cur.execute(sql)
 result = cur.fetchall()
 for re in result:
     st = Student(*re)
-    print(st)
